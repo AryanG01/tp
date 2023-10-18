@@ -105,7 +105,7 @@ public class EditCommand extends Command {
         Address updatedAddress = editRoomDescriptor.getAddress().orElse(bookingToEdit.getAddress());
         Set<Tag> updatedTags = editRoomDescriptor.getTags().orElse(bookingToEdit.getTags());
 
-        return new Booking(updatedRoom, updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Booking(updatedRoom, updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, bookingStartDate, bookingEndDate);
     }
 
     @Override

@@ -49,7 +49,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Booking booking = new Booking(room, name, phone, email, address, tagList);
+        Booking booking = new Booking(room, name, phone, email, address, tagList, bookingStartDate, bookingEndDate);
 
         return new AddCommand(booking);
     }

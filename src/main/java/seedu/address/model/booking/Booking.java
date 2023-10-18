@@ -11,7 +11,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Booking.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Booking {
@@ -25,17 +25,22 @@ public class Booking {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final BookingDate bookingStartDate;
+    private final BookingDate bookingEndDate;
 
     /**
      * Every field must be present and not null.
      */
-    public Booking(Room room, Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Booking(Room room, Name name, Phone phone, Email email, Address address, BookingDate bookingStartDate,
+                   BookingDate bookingEndDate, Set<Tag> tags) {
+        requireAllNonNull(room, name, phone, email, address, bookingStartDate, bookingEndDate, tags);
         this.room = room;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.bookingStartDate = bookingStartDate;
+        this.bookingEndDate = bookingEndDate;
         this.tags.addAll(tags);
     }
 
@@ -58,6 +63,14 @@ public class Booking {
         return address;
     }
 
+    public BookingDate getBookingStartDate() {
+        return bookingStartDate;
+    }
+
+    public BookingDate getBookingEndDate() {
+        return bookingEndDate;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -67,8 +80,8 @@ public class Booking {
     }
 
     /**
-     * Returns true if both persons have the same name.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both bookings have the same name.
+     * This defines a weaker notion of equality between two bookings.
      */
     public boolean isSameBooking(Booking otherBooking) {
         if (otherBooking == this) {
@@ -76,12 +89,12 @@ public class Booking {
         }
 
         return otherBooking != null
-                && otherBooking.getName().equals(getName());
+                && otherBooking.getRoom().equals(getRoom());
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both bookings have the same identity and data fields.
+     * This defines a stronger notion of equality between two bookings.
      */
     @Override
     public boolean equals(Object other) {
@@ -100,13 +113,15 @@ public class Booking {
                 && phone.equals(otherBooking.phone)
                 && email.equals(otherBooking.email)
                 && address.equals(otherBooking.address)
+                && bookingStartDate.equals(otherBooking.bookingStartDate)
+                && bookingEndDate.equals(otherBooking.bookingEndDate)
                 && tags.equals(otherBooking.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(room, name, phone, email, address, tags);
+        return Objects.hash(room, name, phone, email, address, bookingStartDate, bookingEndDate, tags);
     }
 
     @Override
@@ -117,8 +132,9 @@ public class Booking {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
+                .add("bookingStartDate", bookingStartDate)
+                .add("bookingEndDate", bookingEndDate)
                 .add("tags", tags)
                 .toString();
     }
-
 }

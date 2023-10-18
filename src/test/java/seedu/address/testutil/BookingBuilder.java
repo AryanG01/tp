@@ -102,7 +102,7 @@ public class BookingBuilder {
     }
 
     public Booking build() {
-        return new Booking(room, name, phone, email, address, tags);
+        return new Booking(room, name, phone, email, address, tags, bookingStartDate, bookingEndDate);
     }
 
 }

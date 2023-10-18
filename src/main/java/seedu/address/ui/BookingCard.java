@@ -41,6 +41,10 @@ public class BookingCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label startDate;
+    @FXML
+    private Label endDate;
+    @FXML
     private FlowPane tags;
 
     /**
@@ -55,6 +59,8 @@ public class BookingCard extends UiPart<Region> {
         phone.setText("Contact: " + booking.getPhone().value);
         email.setText("Email: " + booking.getEmail().value);
         address.setText("Home Address: " + booking.getAddress().value);
+        startDate.setText("Booking Start Date: " + booking.getBookingStartDate().value);
+        endDate.setText("Booking End Date: " + booking.getBookingEndDate().value);
         booking.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
