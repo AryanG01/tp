@@ -9,7 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.booking.Address;
+import seedu.address.model.booking.BookingPeriod;
 import seedu.address.model.booking.Email;
 import seedu.address.model.booking.Name;
 import seedu.address.model.booking.Phone;
@@ -88,13 +88,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
+    public static BookingPeriod parseAddress(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+        if (!BookingPeriod.isValidBookingPeriod(trimmedAddress)) {
+            throw new ParseException(BookingPeriod.MESSAGE_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
+        return new BookingPeriod(trimmedAddress);
     }
 
     /**

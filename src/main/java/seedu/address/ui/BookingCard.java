@@ -37,7 +37,7 @@ public class BookingCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label address;
+    private Label bookingPeriod;
     @FXML
     private Label email;
     @FXML
@@ -54,7 +54,7 @@ public class BookingCard extends UiPart<Region> {
         name.setText("Client: " + booking.getName().fullName);
         phone.setText("Contact: " + booking.getPhone().value);
         email.setText("Email: " + booking.getEmail().value);
-        address.setText("Home Address: " + booking.getAddress().value);
+        bookingPeriod.setText("Booking Period: " + booking.getBookingPeriod().value);
         booking.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

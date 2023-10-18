@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.booking.Address;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.BookingPeriod;
 import seedu.address.model.booking.Email;
 import seedu.address.model.booking.Name;
 import seedu.address.model.booking.Phone;
@@ -38,8 +38,8 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("room") String room, @JsonProperty("name") String name,
                              @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                             @JsonProperty("email") String email, @JsonProperty("address") String address,
+                             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.room = room;
         this.name = name;
         this.phone = phone;
@@ -58,7 +58,7 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        address = source.getAddress().value;
+        address = source.getBookingPeriod().value;
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -108,15 +108,16 @@ class JsonAdaptedPerson {
         final Email modelEmail = new Email(email);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    BookingPeriod.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        if (!BookingPeriod.isValidBookingPeriod(address)) {
+            throw new IllegalValueException(BookingPeriod.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final BookingPeriod modelBookingPeriod = new BookingPeriod(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Booking(modelRoom, modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Booking(modelRoom, modelName, modelPhone, modelEmail, modelBookingPeriod, modelTags);
     }
 
 }

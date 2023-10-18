@@ -81,7 +81,7 @@ Examples:
 
 ### Adding a booking: `add`
 
-Adds a booking to the address book.
+Adds a booking to the bookingPeriod book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
@@ -104,7 +104,7 @@ Examples:
 
 ### Listing all bookings : `list`
 
-Shows a list of all bookings in the address book.
+Shows a list of all bookings in the bookingPeriod book.
 
 Format: `list`
 
@@ -116,7 +116,7 @@ Format: `view all bookings`
 
 ### Editing a booking : `edit`
 
-Edits an existing booking in the address book.
+Edits an existing booking in the bookingPeriod book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
@@ -128,7 +128,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
   specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st booking to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email bookingPeriod of the 1st booking to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd booking to be `Betsy Crower` and clears all existing tags.
 
 ### Search for a booking
@@ -166,7 +166,7 @@ Examples:
 
 ### Deleting a booking : `delete`
 
-Deletes the specified booking from the address book.
+Deletes the specified booking from the bookingPeriod book.
 
 Format: `delete INDEX`
 
@@ -175,7 +175,7 @@ Format: `delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd booking in the address book.
+* `list` followed by `delete 2` deletes the 2nd booking in the bookingPeriod book.
 * `find Betsy` followed by `delete 1` deletes the 1st booking in the results of the `find` command.
 
 ### Cancelling a booking: `cancelBooking`
@@ -190,7 +190,7 @@ Examples:
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from the bookingPeriod book.
 
 Format: `clear`
 

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BOOKING_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -22,8 +22,8 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.booking.Address;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.BookingPeriod;
 import seedu.address.model.booking.Email;
 import seedu.address.model.booking.Name;
 import seedu.address.model.booking.Phone;
@@ -45,7 +45,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_BOOKING_PERIOD + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -59,7 +59,7 @@ public class EditCommand extends Command {
     private final EditRoomDescriptor editRoomDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index              of the person in the filtered person list to edit
      * @param editRoomDescriptor details to edit the person with
      */
     public EditCommand(Index index, EditRoomDescriptor editRoomDescriptor) {
@@ -68,6 +68,23 @@ public class EditCommand extends Command {
 
         this.index = index;
         this.editRoomDescriptor = new EditRoomDescriptor(editRoomDescriptor);
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * edited with {@code editPersonDescriptor}.
+     */
+    private static Booking createEditedBooking(Booking bookingToEdit, EditRoomDescriptor editRoomDescriptor) {
+        assert bookingToEdit != null;
+
+        Room updatedRoom = editRoomDescriptor.getRoom().orElse(bookingToEdit.getRoom());
+        Name updatedName = editRoomDescriptor.getName().orElse(bookingToEdit.getName());
+        Phone updatedPhone = editRoomDescriptor.getPhone().orElse(bookingToEdit.getPhone());
+        Email updatedEmail = editRoomDescriptor.getEmail().orElse(bookingToEdit.getEmail());
+        BookingPeriod updatedBookingPeriod = editRoomDescriptor.getAddress().orElse(bookingToEdit.getBookingPeriod());
+        Set<Tag> updatedTags = editRoomDescriptor.getTags().orElse(bookingToEdit.getTags());
+
+        return new Booking(updatedRoom, updatedName, updatedPhone, updatedEmail, updatedBookingPeriod, updatedTags);
     }
 
     @Override
@@ -89,23 +106,6 @@ public class EditCommand extends Command {
         model.setBooking(bookingToEdit, editedBooking);
         model.updateFilteredBookingList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_BOOKING_SUCCESS, Messages.format(editedBooking)));
-    }
-
-    /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
-     */
-    private static Booking createEditedBooking(Booking bookingToEdit, EditRoomDescriptor editRoomDescriptor) {
-        assert bookingToEdit != null;
-
-        Room updatedRoom = editRoomDescriptor.getRoom().orElse(bookingToEdit.getRoom());
-        Name updatedName = editRoomDescriptor.getName().orElse(bookingToEdit.getName());
-        Phone updatedPhone = editRoomDescriptor.getPhone().orElse(bookingToEdit.getPhone());
-        Email updatedEmail = editRoomDescriptor.getEmail().orElse(bookingToEdit.getEmail());
-        Address updatedAddress = editRoomDescriptor.getAddress().orElse(bookingToEdit.getAddress());
-        Set<Tag> updatedTags = editRoomDescriptor.getTags().orElse(bookingToEdit.getTags());
-
-        return new Booking(updatedRoom, updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -141,10 +141,11 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Address address;
+        private BookingPeriod bookingPeriod;
         private Set<Tag> tags;
 
-        public EditRoomDescriptor() {}
+        public EditRoomDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -155,7 +156,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            setAddress(toCopy.bookingPeriod);
             setTags(toCopy.tags);
         }
 
@@ -163,55 +164,47 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(room, name, phone, email, address, tags);
-        }
-
-        public void setRoom(Room room) {
-            this.room = room;
+            return CollectionUtil.isAnyNonNull(room, name, phone, email, bookingPeriod, tags);
         }
 
         public Optional<Room> getRoom() {
             return Optional.ofNullable(room);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setRoom(Room room) {
+            this.room = room;
         }
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setName(Name name) {
+            this.name = name;
         }
 
         public Optional<Phone> getPhone() {
             return Optional.ofNullable(phone);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setPhone(Phone phone) {
+            this.phone = phone;
         }
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setEmail(Email email) {
+            this.email = email;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<BookingPeriod> getAddress() {
+            return Optional.ofNullable(bookingPeriod);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setAddress(BookingPeriod bookingPeriod) {
+            this.bookingPeriod = bookingPeriod;
         }
 
         /**
@@ -221,6 +214,14 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        /**
+         * Sets {@code tags} to this object's {@code tags}.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public void setTags(Set<Tag> tags) {
+            this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
         @Override
@@ -239,7 +240,7 @@ public class EditCommand extends Command {
                     && Objects.equals(name, otherEditRoomDescriptor.name)
                     && Objects.equals(phone, otherEditRoomDescriptor.phone)
                     && Objects.equals(email, otherEditRoomDescriptor.email)
-                    && Objects.equals(address, otherEditRoomDescriptor.address)
+                    && Objects.equals(bookingPeriod, otherEditRoomDescriptor.bookingPeriod)
                     && Objects.equals(tags, otherEditRoomDescriptor.tags);
         }
 
@@ -250,7 +251,7 @@ public class EditCommand extends Command {
                     .add("name", name)
                     .add("phone", phone)
                     .add("email", email)
-                    .add("address", address)
+                    .add("address", bookingPeriod)
                     .add("tags", tags)
                     .toString();
         }

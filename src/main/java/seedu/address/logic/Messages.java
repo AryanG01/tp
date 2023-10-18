@@ -42,7 +42,7 @@ public class Messages {
                 .append("; Email: ")
                 .append(booking.getEmail())
                 .append("; Address: ")
-                .append(booking.getAddress())
+                .append(booking.getBookingPeriod())
                 .append("; Tags: ");
         booking.getTags().forEach(builder::append);
         return builder.toString();
