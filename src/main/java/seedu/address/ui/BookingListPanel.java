@@ -14,25 +14,25 @@ import seedu.address.model.booking.Booking;
  * Panel containing the list of persons.
  */
 public class BookingListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "RoomListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(BookingListPanel.class);
 
     @FXML
-    private ListView<Booking> personListView;
+    private ListView<Booking> roomListView;
 
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
     public BookingListPanel(ObservableList<Booking> bookingList) {
         super(FXML);
-        personListView.setItems(bookingList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        roomListView.setItems(bookingList);
+        roomListView.setCellFactory(listView -> new RoomListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Booking> {
+    class RoomListViewCell extends ListCell<Booking> {
         @Override
         protected void updateItem(Booking booking, boolean empty) {
             super.updateItem(booking, empty);

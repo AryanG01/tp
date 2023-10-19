@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.booking.Address;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.BookingDate;
 import seedu.address.model.booking.Email;
 import seedu.address.model.booking.Name;
 import seedu.address.model.booking.Phone;
@@ -30,6 +31,8 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final String startDate;
+    private final String endDate;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -38,13 +41,16 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("room") String room, @JsonProperty("name") String name,
                              @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                             @JsonProperty("email") String email, @JsonProperty("address") String address,
+                             @JsonProperty("startDate") String startDate, @JsonProperty("endDate") String endDate,
+                             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.room = room;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.startDate = startDate;
+        this.endDate = endDate;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -59,6 +65,8 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        startDate = source.getStartDate().value.toString();
+        endDate = source.getEndDate().value.toString();
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -115,8 +123,27 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        if (startDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    BookingDate.class.getSimpleName()));
+        }
+        if (!BookingDate.isValidDate(startDate)) {
+            throw new IllegalValueException(BookingDate.MESSAGE_CONSTRAINTS);
+        }
+        final BookingDate modelStartDate = new BookingDate(startDate);
+
+        if (endDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    BookingDate.class.getSimpleName()));
+        }
+        if (!BookingDate.isValidDate(endDate)) {
+            throw new IllegalValueException(BookingDate.MESSAGE_CONSTRAINTS);
+        }
+        final BookingDate modelEndDate = new BookingDate(endDate);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Booking(modelRoom, modelName, modelPhone, modelEmail, modelAddress, modelTags, bookingStartDate, bookingEndDate);
+        return new Booking(modelRoom, modelName, modelPhone, modelEmail, modelAddress, modelStartDate, modelEndDate,
+                           modelTags);
     }
 
 }

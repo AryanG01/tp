@@ -10,11 +10,11 @@ import javafx.scene.layout.Region;
 import seedu.address.model.booking.Booking;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Room}.
  */
 public class BookingCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "RoomListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -59,8 +59,8 @@ public class BookingCard extends UiPart<Region> {
         phone.setText("Contact: " + booking.getPhone().value);
         email.setText("Email: " + booking.getEmail().value);
         address.setText("Home Address: " + booking.getAddress().value);
-        startDate.setText("Booking Start Date: " + booking.getBookingStartDate().value);
-        endDate.setText("Booking End Date: " + booking.getBookingEndDate().value);
+        startDate.setText("Booking Start Date: " + booking.getStartDate().value);
+        endDate.setText("Booking End Date: " + booking.getEndDate().value);
         booking.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

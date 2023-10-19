@@ -65,7 +65,9 @@ public class EditBookingDescriptorTest {
                 + editRoomDescriptor.getName().orElse(null) + ", phone="
                 + editRoomDescriptor.getPhone().orElse(null) + ", email="
                 + editRoomDescriptor.getEmail().orElse(null) + ", address="
-                + editRoomDescriptor.getAddress().orElse(null) + ", tags="
+                + editRoomDescriptor.getAddress().orElse(null) + ", start date="
+                + editRoomDescriptor.getStartDate().orElse(null) + ", end date="
+                + editRoomDescriptor.getEndDate().orElse(null) + ", tags="
                 + editRoomDescriptor.getTags().orElse(null) + "}";
         assertEquals(expected, editRoomDescriptor.toString());
     }

@@ -110,7 +110,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        bookingListPanel = new BookingListPanel(logic.getFilteredPersonList());
+        bookingListPanel = new BookingListPanel(logic.getFilteredRoomList());
         personListPanelPlaceholder.getChildren().add(bookingListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -163,7 +163,7 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public BookingListPanel getPersonListPanel() {
+    public BookingListPanel getRoomListPanel() {
         return bookingListPanel;
     }
 

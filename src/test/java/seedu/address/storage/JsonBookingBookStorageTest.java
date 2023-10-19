@@ -73,7 +73,7 @@ public class JsonBookingBookStorageTest {
 
         // Modify data, overwrite exiting file, and read back
         original.addBooking(HOON);
-        original.removePerson(ALICE);
+        original.removeRoom(ALICE);
         jsonAddressBookStorage.saveBookingBook(original, filePath);
         readBack = jsonAddressBookStorage.readBookingBook(filePath).get();
         assertEquals(original, new BookingsBook(readBack));

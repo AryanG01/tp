@@ -2,12 +2,17 @@ package seedu.address.model.booking;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
 /**
  * Represents a date for a booking.
  */
 public class BookingDate {
+
+    public static final String MESSAGE_CONSTRAINTS =
+            "Dates should be fo the form YYYY-MMM-DD, and it should not be blank";
+
     /**
      * The actual date value stored in this BookingDate object.
      */
@@ -23,12 +28,28 @@ public class BookingDate {
     }
 
     /**
+     * Checks if a given date string is in a valid format.
+     *
+     * @param date The date string to validate.
+     * @return true if the date string is in a valid format, false otherwise.
+     */
+    public static boolean isValidDate(String date) {
+        try {
+            // Attempt to parse the date string without throwing an exception
+            parse(date);
+            return true; // Parsing succeeded, so it's a valid date
+        } catch (DateTimeParseException e) {
+            return false; // Parsing failed, so it's not a valid date
+        }
+    }
+
+    /**
      * Parses a date string into a LocalDate object using the specified format and locale.
      *
      * @param date The date string to be parsed.
      * @return A LocalDate object representing the parsed date.
      */
-    public LocalDate parse(String date) {
+    public static LocalDate parse(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
         formatter = formatter.withLocale(Locale.US);
         return LocalDate.parse(date, formatter);

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.booking.Address;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.BookingDate;
 import seedu.address.model.booking.Email;
 import seedu.address.model.booking.Name;
 import seedu.address.model.booking.Phone;
@@ -21,12 +22,16 @@ public class BookingBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_START_DATE = "2019-Oct-15";
+    public static final String DEFAULT_END_DATE = "2023-Oct-19";
 
     private Room room;
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
+    private BookingDate startDate;
+    private BookingDate endDate;
     private Set<Tag> tags;
 
     /**
@@ -38,6 +43,8 @@ public class BookingBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        startDate = new BookingDate(DEFAULT_START_DATE);
+        endDate = new BookingDate(DEFAULT_END_DATE);
         tags = new HashSet<>();
     }
 
@@ -50,6 +57,8 @@ public class BookingBuilder {
         phone = bookingToCopy.getPhone();
         email = bookingToCopy.getEmail();
         address = bookingToCopy.getAddress();
+        startDate = bookingToCopy.getStartDate();
+        endDate = bookingToCopy.getEndDate();
         tags = new HashSet<>(bookingToCopy.getTags());
     }
 
@@ -101,8 +110,24 @@ public class BookingBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Email} of the {@code Person} that we are building.
+     */
+    public BookingBuilder withStartDate(String date) {
+        this.startDate = new BookingDate(date);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Email} of the {@code Person} that we are building.
+     */
+    public BookingBuilder withEndDate(String date) {
+        this.endDate = new BookingDate(date);
+        return this;
+    }
+
     public Booking build() {
-        return new Booking(room, name, phone, email, address, tags, bookingStartDate, bookingEndDate);
+        return new Booking(room, name, phone, email, address, startDate, endDate, tags);
     }
 
 }

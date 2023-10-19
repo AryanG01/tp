@@ -33,7 +33,7 @@ public class ModelManager implements Model {
 
         this.bookingsBook = new BookingsBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredBookings = new FilteredList<>(this.bookingsBook.getPersonList());
+        filteredBookings = new FilteredList<>(this.bookingsBook.getRoomList());
 
     }
 
@@ -96,13 +96,13 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteBooking(Booking target) {
-        bookingsBook.removePerson(target);
+        bookingsBook.removeRoom(target);
     }
 
     @Override
     public void addBooking(Booking booking) {
         bookingsBook.addBooking(booking);
-        updateFilteredBookingList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredBookingList(PREDICATE_SHOW_ALL_ROOMS);
     }
 
     @Override

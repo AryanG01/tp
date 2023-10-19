@@ -2,12 +2,13 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ROOMS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -24,6 +25,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Address;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.BookingDate;
 import seedu.address.model.booking.Email;
 import seedu.address.model.booking.Name;
 import seedu.address.model.booking.Phone;
@@ -46,6 +48,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_DATE + "START DATE] "
+            + "[" + PREFIX_DATE + "END DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -87,7 +91,7 @@ public class EditCommand extends Command {
         }
 
         model.setBooking(bookingToEdit, editedBooking);
-        model.updateFilteredBookingList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredBookingList(PREDICATE_SHOW_ALL_ROOMS);
         return new CommandResult(String.format(MESSAGE_EDIT_BOOKING_SUCCESS, Messages.format(editedBooking)));
     }
 
@@ -103,9 +107,12 @@ public class EditCommand extends Command {
         Phone updatedPhone = editRoomDescriptor.getPhone().orElse(bookingToEdit.getPhone());
         Email updatedEmail = editRoomDescriptor.getEmail().orElse(bookingToEdit.getEmail());
         Address updatedAddress = editRoomDescriptor.getAddress().orElse(bookingToEdit.getAddress());
+        BookingDate updatedStartDate = editRoomDescriptor.getStartDate().orElse(bookingToEdit.getStartDate());
+        BookingDate updatedEndDate = editRoomDescriptor.getEndDate().orElse(bookingToEdit.getEndDate());
         Set<Tag> updatedTags = editRoomDescriptor.getTags().orElse(bookingToEdit.getTags());
 
-        return new Booking(updatedRoom, updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, bookingStartDate, bookingEndDate);
+        return new Booking(updatedRoom, updatedName, updatedPhone, updatedEmail, updatedAddress,
+                updatedStartDate, updatedEndDate, updatedTags);
     }
 
     @Override
@@ -128,7 +135,7 @@ public class EditCommand extends Command {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("index", index)
-                .add("editPersonDescriptor", editRoomDescriptor)
+                .add("editRoomDescriptor", editRoomDescriptor)
                 .toString();
     }
 
@@ -142,6 +149,8 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
+        private BookingDate startDate;
+        private BookingDate endDate;
         private Set<Tag> tags;
 
         public EditRoomDescriptor() {}
@@ -156,6 +165,8 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setStartDate(toCopy.startDate);
+            setEndDate(toCopy.endDate);
             setTags(toCopy.tags);
         }
 
@@ -163,7 +174,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(room, name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(room, name, phone, email, address, startDate, endDate, tags);
         }
 
         public void setRoom(Room room) {
@@ -206,6 +217,22 @@ public class EditCommand extends Command {
             return Optional.ofNullable(address);
         }
 
+        public void setStartDate(BookingDate startDate) {
+            this.startDate = startDate;
+        }
+
+        public Optional<BookingDate> getStartDate() {
+            return Optional.ofNullable(startDate);
+        }
+
+        public void setEndDate(BookingDate endDate) {
+            this.endDate = endDate;
+        }
+
+        public Optional<BookingDate> getEndDate() {
+            return Optional.ofNullable(endDate);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -240,6 +267,8 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditRoomDescriptor.phone)
                     && Objects.equals(email, otherEditRoomDescriptor.email)
                     && Objects.equals(address, otherEditRoomDescriptor.address)
+                    && Objects.equals(startDate, otherEditRoomDescriptor.startDate)
+                    && Objects.equals(endDate, otherEditRoomDescriptor.endDate)
                     && Objects.equals(tags, otherEditRoomDescriptor.tags);
         }
 
@@ -251,6 +280,8 @@ public class EditCommand extends Command {
                     .add("phone", phone)
                     .add("email", email)
                     .add("address", address)
+                    .add("start date", startDate)
+                    .add("end date", endDate)
                     .add("tags", tags)
                     .toString();
         }

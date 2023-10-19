@@ -8,6 +8,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditRoomDescriptor;
 import seedu.address.model.booking.Address;
 import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.BookingDate;
 import seedu.address.model.booking.Email;
 import seedu.address.model.booking.Name;
 import seedu.address.model.booking.Phone;
@@ -39,6 +40,8 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(booking.getPhone());
         descriptor.setEmail(booking.getEmail());
         descriptor.setAddress(booking.getAddress());
+        descriptor.setStartDate(booking.getStartDate());
+        descriptor.setEndDate(booking.getEndDate());
         descriptor.setTags(booking.getTags());
     }
 
@@ -80,6 +83,22 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
+        return this;
+    }
+
+    /**
+     * Sets the {@code startDate} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withStartDate(String startDate) {
+        descriptor.setStartDate(new BookingDate(startDate));
+        return this;
+    }
+
+    /**
+     * Sets the {@code endDate} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withEndDate(String endDate) {
+        descriptor.setEndDate(new BookingDate(endDate));
         return this;
     }
 

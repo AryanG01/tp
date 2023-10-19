@@ -28,7 +28,7 @@ public class AddressBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getRoomList());
     }
 
     @Test
@@ -80,12 +80,12 @@ public class AddressBookTest {
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getRoomList().remove(0));
     }
 
     @Test
     public void toStringMethod() {
-        String expected = BookingsBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
+        String expected = BookingsBook.class.getCanonicalName() + "{persons=" + addressBook.getRoomList() + "}";
         assertEquals(expected, addressBook.toString());
     }
 
@@ -100,7 +100,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Booking> getPersonList() {
+        public ObservableList<Booking> getRoomList() {
             return bookings;
         }
     }

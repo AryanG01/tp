@@ -25,22 +25,22 @@ public class Booking {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private final BookingDate bookingStartDate;
-    private final BookingDate bookingEndDate;
+    private final BookingDate startDate;
+    private final BookingDate endDate;
 
     /**
      * Every field must be present and not null.
      */
-    public Booking(Room room, Name name, Phone phone, Email email, Address address, BookingDate bookingStartDate,
-                   BookingDate bookingEndDate, Set<Tag> tags) {
-        requireAllNonNull(room, name, phone, email, address, bookingStartDate, bookingEndDate, tags);
+    public Booking(Room room, Name name, Phone phone, Email email, Address address, BookingDate startDate,
+                   BookingDate endDate, Set<Tag> tags) {
+        requireAllNonNull(room, name, phone, email, address, startDate, endDate, tags);
         this.room = room;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.bookingStartDate = bookingStartDate;
-        this.bookingEndDate = bookingEndDate;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.tags.addAll(tags);
     }
 
@@ -63,12 +63,12 @@ public class Booking {
         return address;
     }
 
-    public BookingDate getBookingStartDate() {
-        return bookingStartDate;
+    public BookingDate getStartDate() {
+        return startDate;
     }
 
-    public BookingDate getBookingEndDate() {
-        return bookingEndDate;
+    public BookingDate getEndDate() {
+        return endDate;
     }
 
     /**
@@ -113,15 +113,15 @@ public class Booking {
                 && phone.equals(otherBooking.phone)
                 && email.equals(otherBooking.email)
                 && address.equals(otherBooking.address)
-                && bookingStartDate.equals(otherBooking.bookingStartDate)
-                && bookingEndDate.equals(otherBooking.bookingEndDate)
+                && startDate.equals(otherBooking.startDate)
+                && endDate.equals(otherBooking.endDate)
                 && tags.equals(otherBooking.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(room, name, phone, email, address, bookingStartDate, bookingEndDate, tags);
+        return Objects.hash(room, name, phone, email, address, startDate, endDate, tags);
     }
 
     @Override
@@ -132,8 +132,8 @@ public class Booking {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
-                .add("bookingStartDate", bookingStartDate)
-                .add("bookingEndDate", bookingEndDate)
+                .add("startDate", startDate)
+                .add("endDate", endDate)
                 .add("tags", tags)
                 .toString();
     }

@@ -32,17 +32,22 @@ public class Messages {
     }
 
     /**
-     * Formats the {@code person} for display to the user.
+     * Formats the {@code room} for display to the user.
      */
     public static String format(Booking booking) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(booking.getName())
+        builder.append(booking.getRoom())
+                .append(booking.getName())
                 .append("; Phone: ")
                 .append(booking.getPhone())
                 .append("; Email: ")
                 .append(booking.getEmail())
                 .append("; Address: ")
                 .append(booking.getAddress())
+                .append("; Start Date: ")
+                .append(booking.getStartDate())
+                .append("; End Date: ")
+                .append(booking.getEndDate())
                 .append("; Tags: ");
         booking.getTags().forEach(builder::append);
         return builder.toString();

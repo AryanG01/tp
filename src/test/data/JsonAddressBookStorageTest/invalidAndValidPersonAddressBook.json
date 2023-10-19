@@ -4,12 +4,16 @@
     "name": "Valid Person",
     "phone": "9482424",
     "email": "hans@example.com",
-    "address": "4th street"
+    "address": "4th street",
+    "startDate": "2019-Oct-15",
+    "endDate": "2019-Oct-15"
   }, {
     "room": "2",
     "name": "Person With Invalid Phone Field",
     "phone": "948asdf2424",
     "email": "hans@example.com",
-    "address": "4th street"
+    "address": "4th street",
+    "startDate": "2019-Oct-15",
+    "endDate": "2019-Oct-15"
   } ]
 }

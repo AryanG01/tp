@@ -31,7 +31,7 @@ public class BookingsBook implements ReadOnlyBookingsBook {
     public BookingsBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Rooms in the {@code toBeCopied}
      */
     public BookingsBook(ReadOnlyBookingsBook toBeCopied) {
         this();
@@ -41,8 +41,8 @@ public class BookingsBook implements ReadOnlyBookingsBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the room list with {@code rooms}.
+     * {@code rooms} must not contain duplicate rooms.
      */
     public void setBookings(List<Booking> bookings) {
         this.bookings.setBookings(bookings);
@@ -54,13 +54,13 @@ public class BookingsBook implements ReadOnlyBookingsBook {
     public void resetData(ReadOnlyBookingsBook newData) {
         requireNonNull(newData);
 
-        setBookings(newData.getPersonList());
+        setBookings(newData.getRoomList());
     }
 
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a room with the same identity as {@code room} exists in the address book.
      */
     public boolean hasBooking(Booking booking) {
         requireNonNull(booking);
@@ -68,17 +68,17 @@ public class BookingsBook implements ReadOnlyBookingsBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a room to the address book.
+     * The room must not already exist in the address book.
      */
     public void addBooking(Booking p) {
         bookings.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given person {@code target} in the list with {@code editedRoom}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The room number of {@code editedRoom} must not be the same as another existing room in the address book.
      */
     public void setBooking(Booking target, Booking editedBooking) {
         requireNonNull(editedBooking);
@@ -90,7 +90,7 @@ public class BookingsBook implements ReadOnlyBookingsBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Booking key) {
+    public void removeRoom(Booking key) {
         bookings.remove(key);
     }
 
@@ -104,7 +104,7 @@ public class BookingsBook implements ReadOnlyBookingsBook {
     }
 
     @Override
-    public ObservableList<Booking> getPersonList() {
+    public ObservableList<Booking> getRoomList() {
         return bookings.asUnmodifiableObservableList();
     }
 
