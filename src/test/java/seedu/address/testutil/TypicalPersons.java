@@ -2,16 +2,18 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -64,11 +66,11 @@ public class TypicalPersons {
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Booking AMY = new BookingBuilder().withRoom(VALID_ROOM_AMY).withName(VALID_NAME_AMY)
             .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-            .withStartDate(VALID_DATE_AMY).withEndDate(VALID_DATE_AMY)
+            .withStartDate(VALID_START_AMY).withEndDate(VALID_END_AMY)
             .withTags(VALID_TAG_FRIEND).build();
     public static final Booking BOB = new BookingBuilder().withRoom(VALID_ROOM_BOB).withName(VALID_NAME_BOB)
             .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-            .withStartDate(VALID_DATE_BOB).withEndDate(VALID_DATE_BOB)
+            .withStartDate(VALID_START_BOB).withEndDate(VALID_END_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

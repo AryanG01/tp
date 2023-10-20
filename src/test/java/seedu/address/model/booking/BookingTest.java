@@ -4,12 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -37,8 +38,8 @@ public class BookingTest {
 
         // same name, all other attributes different -> returns true
         Booking editedAlice = new BookingBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withStartDate(VALID_DATE_BOB)
-                .withEndDate(VALID_DATE_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withAddress(VALID_ADDRESS_BOB).withStartDate(VALID_START_BOB)
+                .withEndDate(VALID_END_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameBooking(editedAlice));
 
         // different name, all other attributes same -> returns false

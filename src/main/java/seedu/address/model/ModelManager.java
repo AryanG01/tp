@@ -33,7 +33,7 @@ public class ModelManager implements Model {
 
         this.bookingsBook = new BookingsBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredBookings = new FilteredList<>(this.bookingsBook.getRoomList());
+        filteredBookings = new FilteredList<>(this.bookingsBook.getPersonList());
 
     }
 

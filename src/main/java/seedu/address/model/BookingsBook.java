@@ -54,7 +54,7 @@ public class BookingsBook implements ReadOnlyBookingsBook {
     public void resetData(ReadOnlyBookingsBook newData) {
         requireNonNull(newData);
 
-        setBookings(newData.getRoomList());
+        setBookings(newData.getPersonList());
     }
 
     //// person-level operations
@@ -104,7 +104,7 @@ public class BookingsBook implements ReadOnlyBookingsBook {
     }
 
     @Override
-    public ObservableList<Booking> getRoomList() {
+    public ObservableList<Booking> getPersonList() {
         return bookings.asUnmodifiableObservableList();
     }
 

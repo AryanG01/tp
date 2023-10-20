@@ -16,7 +16,8 @@ public class BookingDate {
     /**
      * The actual date value stored in this BookingDate object.
      */
-    public final LocalDate value;
+    public final String value;
+    public final LocalDate date;
 
     /**
      * Constructs a BookingDate object with the given date string.
@@ -24,7 +25,8 @@ public class BookingDate {
      * @param date The date string to be parsed into a LocalDate object.
      */
     public BookingDate(String date) {
-        this.value = parse(date);
+        this.value = date;
+        this.date = parse(date);
     }
 
     /**
@@ -74,6 +76,6 @@ public class BookingDate {
      * @return A string representation of the LocalDate value.
      */
     public String toString() {
-        return value.toString();
+        return value;
     }
 }

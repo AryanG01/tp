@@ -114,15 +114,23 @@ public class ArgumentTokenizer {
      * The end position of the value is determined by {@code nextPrefixPosition}.
      */
     private static String extractArgumentValue(String argsString,
-                                        PrefixPosition currentPrefixPosition,
-                                        PrefixPosition nextPrefixPosition) {
+                                               PrefixPosition currentPrefixPosition,
+                                               PrefixPosition nextPrefixPosition) {
         Prefix prefix = currentPrefixPosition.getPrefix();
 
         int valueStartPos = currentPrefixPosition.getStartPosition() + prefix.getPrefix().length();
+
+        // Add a check to ensure the valueStartPos is less than the nextPrefixPosition
+        if (valueStartPos >= nextPrefixPosition.getStartPosition()) {
+            // Handle the case where there's no value between prefixes
+            return "";
+        }
+
         String value = argsString.substring(valueStartPos, nextPrefixPosition.getStartPosition());
 
         return value.trim();
     }
+
 
     /**
      * Represents a prefix's position in an arguments string.
